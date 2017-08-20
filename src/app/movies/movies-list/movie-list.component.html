@@ -1,0 +1,49 @@
+<link rel="stylesheet" href="./movie-list.component.css">
+
+<div class="col-sm-12">
+  <div class="search-panel">
+    <div class="input-group stylish-input-group">
+      <input type="text" class="form-control" placeholder="Search" [(ngModel)] = 'actualTerm'>
+      <span class="input-group-addon">
+                        <button type="submit" (click) = "getMoviesPagination(1)">
+                            <span class="glyphicon glyphicon-search"></span>
+      </button>
+      </span>
+    </div>
+  </div>
+</div>
+<!--<h1>Movies</h1>-->
+<ul class="heroes">
+  <li *ngFor="let movie of movies">
+    <div class="row movie" [routerLink]="['details', movie.id]">
+      <div>
+        <img class="movie-image" src="{{movie.poster_path}}" />
+      </div>
+      <section>
+        <a class="movie-title">{{movie.title}}</a>
+        <span class="movie-title"> ( {{movie.release_date | date: "yyyy"}} ) </span>
+        <br>
+        <span class="movie-language">Original language: {{movie.original_language}}</span>
+        <br>
+        <p class="movie-overview"> {{movie.overview}} </p>
+      </section>
+    </div>
+  </li>
+</ul>
+<ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+  <li [ngClass]="{disabled:pager.currentPage === 1}">
+    <a (click)="setPage(1)">First</a>
+  </li>
+  <li [ngClass]="{disabled:pager.currentPage === 1}">
+    <a (click)="setPage(pager.currentPage - 1)">Previous</a>
+  </li>
+  <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+    <a (click)="setPage(page)">{{page}}</a>
+  </li>
+  <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+    <a (click)="setPage(pager.currentPage + 1)">Next</a>
+  </li>
+  <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+    <a (click)="setPage(pager.totalPages)">Last</a>
+  </li>
+</ul>

@@ -1,0 +1,53 @@
+.movie{
+    margin-top:15px;
+}
+
+.movie:hover{
+    cursor: pointer;
+    background-color: lightgrey;
+}
+
+.movie-image{
+    max-width: 125px;
+    float: left;
+    margin-right: 10px;
+}
+
+.movie-title{
+    vertical-align: top;
+    font-size: 20px;
+}
+
+.movie-title:hover{
+    cursor: pointer;
+}
+
+ul {
+  list-style-type: none;
+}
+
+.movie-overview{
+    margin-top:20px;
+}
+
+.search-panel{
+    margin: 0px 0px 15px 10px;
+}
+
+.stylish-input-group .input-group-addon{
+    background: white !important; 
+}
+.stylish-input-group .form-control{
+	border-right:0; 
+	box-shadow:0 0 0; 
+	border-color:#ccc;
+}
+.stylish-input-group button{
+    border:0;
+    background:transparent;
+}
+
+
+.movie:first-child { 
+    margin-top: 50px !important;
+}

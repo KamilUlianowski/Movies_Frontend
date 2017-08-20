@@ -1,0 +1,10 @@
+<link rel="stylesheet" href="./movie-trailers.component.css">
+
+<ul class="heroes">
+  <li *ngFor="let movie of movies">
+    <div class="row">
+      <iframe width="300" height="189" [src]="getSecureUrl(movie)">
+      </iframe>
+    </div>  
+  </li>
+</ul>

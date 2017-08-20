@@ -1,0 +1,109 @@
+<link rel="stylesheet" href="./movie-details.component.css">
+
+<div class="row">
+    <div class="col-md-2 col-md-offset-3" *ngIf="!!videoKeys" data-toggle="modal" data-target="#myModal">
+        <img (click)="changeSelectedVideo(0)" class="movie-image" width="200" height="285" class="movie-image" src="{{movie?.poster_path}}"
+        />
+
+        <!--<div class="videoContainer">
+            <img class="media__icon--play" width="200" height="285" class="movie-image" src="{{movie?.poster_path}}" />
+            <img src="http://www.free-icons-download.net/images/grays-play-button-icon-17896.png" alt="play" class="playBtn">
+        </div>-->
+    </div>
+    <div class="col-md-3">
+        <h3><b>{{movie?.original_title}}</b></h3>
+        <h4>({{movie?.release_date | date: "yyyy"}})</h4>
+        <div class="duration">{{movieMoreDetails?.runtime}} min </div>
+        <p class="movie-overview"> {{movie?.overview}} </p>
+        <button (click)="changeSelectedVideo(0)" data-toggle="modal" data-target="#myModal" class="btn btn-primary">Show trailer</button>
+        <br>
+        <br>
+        <table>
+            <tbody>
+                <tr *ngIf="!!movieMoreDetails?.production_companies">
+                    <th>
+                        Directory:
+                    </th>
+                    <td>
+                        {{movieMoreDetails?.production_companies[0].name}}
+                    </td>
+                </tr>
+                <tr *ngIf="!!movieMoreDetails?.production_countries">
+                    <th>
+                        Countries:
+                    </th>
+                    <td>
+                        {{movieMoreDetails?.production_countries[0].name}}
+                    </td>
+                </tr>
+                <tr>
+                    <tr>
+                        <th>
+                            Budget:
+                        </th>
+                        <td>
+                            {{movieMoreDetails?.budget}}$
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            Revenue:
+                        </th>
+                        <td>
+                            {{movieMoreDetails?.revenue}}$
+                        </td>
+                    </tr>
+                    <tr>
+                        <tr>
+
+                            <th>
+                                Duration:
+                            </th>
+                            <td>
+                                {{movieMoreDetails?.runtime}} min
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+
+    </div>
+    <div class="col-md-4">
+        <h1 class="trailers-text">Ratings</h1>
+        <div *ngIf="!!movie">
+            <star-rating-comp [starType]="'svg'" [rating]="userRate" (onRatingChange)="onRatingChange($event)">
+
+            </star-rating-comp>
+        </div>
+        <div class="center-text"> Your rate is <b>{{userRate}}</b></div>
+        <div class="center-text">Average rating <b>{{movie?.vote_average | number : '1.2-2'}}</b> 
+        based on <b>{{movie?.vote_count}}</b> votes</div>
+    </div>
+
+    <button *ngIf="!toWatch" class="btn btn-primary movie-to-watch-btn col-md-offset-1" (click) ="addMovieToWatch()" >  Add to watch  </button>
+    <button *ngIf="!!toWatch" class="btn btn-primary movie-to-watch-btn col-md-offset-1" (click) ="removeMovieFromWanted()" >  remove from movies to watch  </button>
+</div>
+
+<div class="row" class="trailers">
+    <div class="movie-image">
+        <h2 class="trailers-text">Trailers</h2>
+        <div class="col-md-5 col-md-offset-3">
+            <div *ngFor="let key of videoKeys ;let i = index" data-toggle="modal" data-target="#myModal" (click)="changeSelectedVideo(i)">
+                <img class="col-md-4 movie-trailer" [src]="getVideoImage(key)">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-body" *ngIf="!!videoKeys">
+                <iframe width="100%" height="350" [src]="getSecureUrl(videoKeys[selectedVideo])">
+                </iframe>
+            </div>
+        </div>
+
+    </div>
+</div>
